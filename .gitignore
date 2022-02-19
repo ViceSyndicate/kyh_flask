@@ -1,3 +1,4 @@
 venv/
 __pycache__/
 .env
+flask/app/templates/base-template.html

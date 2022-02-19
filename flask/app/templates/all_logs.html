@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Temp Readings</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/simple-v1.css') }}">
+</head>
+<body>
+
+    <table>
+        <tr>
+            <th>
+                Date & Time
+            </th>
+            <th>
+                Username
+            </th>
+            <th>
+                Door
+            </th>
+        </tr>
+
+    {% for log in all_logs %}
+        <tr>
+            <td>
+                {{ log['datetime'] }}
+            </td>
+            <td>
+                {{ log['username'] }}
+            </td>
+            <td>
+                {{ log['door'] }}
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+</body>
+</html>

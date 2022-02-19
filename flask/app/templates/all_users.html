@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Temp Readings</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/simple-v1.css') }}">
+</head>
+<body>
+
+    <table>
+        <tr>
+            <th>
+                Created
+            </th>
+            <th>
+                Username
+            </th>
+            <th>
+                ID
+            </th>
+        </tr>
+
+    {% for user in all_users %}
+        <tr>
+            <td>
+                {{ user['current_time'] }}
+            </td>
+            <td>
+                {{ user['username'] }}
+            </td>
+            <td>
+                {{ user['id'] }}
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+</body>
+</html>
