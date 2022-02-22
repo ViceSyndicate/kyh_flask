@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/simple-v1.css') }}">
 </head>
 <body>
-
     <table>
         <tr>
             <th>
@@ -19,11 +18,10 @@
                 ID
             </th>
         </tr>
-
     {% for user in all_users %}
         <tr>
             <td>
-                {{ user['current_time'] }}
+                {{ user['user_created'] }}
             </td>
             <td>
                 {{ user['username'] }}
