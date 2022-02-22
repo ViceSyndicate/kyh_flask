@@ -1,36 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Temp Readings</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/simple-v1.css') }}">
-</head>
-<body>
-    <table>
-        <tr>
-            <th>
-                Created
-            </th>
-            <th>
-                Username
-            </th>
-            <th>
-                ID
-            </th>
-        </tr>
-    {% for user in all_users %}
-        <tr>
-            <td>
-                {{ user['user_created'] }}
-            </td>
-            <td>
-                {{ user['username'] }}
-            </td>
-            <td>
-                {{ user['id'] }}
-            </td>
-        </tr>
-    {% endfor %}
-    </table>
-</body>
-</html>
+{% extends "base-template.html" %}
+
+{% block title %}
+    <h1>All Users</h1>
+{% endblock %}
+
+{% block content %}
+<table>
+    <tr>
+        <th>
+            Created
+        </th>
+        <th>
+            Username
+        </th>
+        <th>
+            ID
+        </th>
+    </tr>
+{% for user in all_users %}
+    <tr>
+        <td>
+            {{ user['user_created'] }}
+        </td>
+        <td>
+            {{ user['username'] }}
+        </td>
+        <td>
+            {{ user['id'] }}
+        </td>
+    </tr>
+{% endfor %}
+</table>
+{% endblock %}

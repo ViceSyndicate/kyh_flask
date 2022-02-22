@@ -1,12 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Temp Readings</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/simple-v1.css') }}">
-</head>
-<body>
+{% extends "base-template.html" %}
 
+{% block title %}
+    <h1>All Logs</h1>
+{% endblock %}
+
+{% block content %}
     <table>
         <tr>
             <th>
@@ -19,7 +17,6 @@
                 Door
             </th>
         </tr>
-
     {% for log in all_logs %}
         <tr>
             <td>
@@ -34,5 +31,4 @@
         </tr>
     {% endfor %}
     </table>
-</body>
-</html>
+{% endblock %}
