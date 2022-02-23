@@ -35,3 +35,10 @@ def get_all_users():
     # TODO Filter out password & sensitive data.
     response = table.scan()
     return response['Items']
+
+
+def add_tag(new_tag):
+    client = get_resources()
+    table = client.Table('users')
+    table.put_item(Item=new_tag)
+    return
