@@ -1,6 +1,7 @@
 import datetime
 import uuid
-from flask import Blueprint, redirect, url_for
+from passlib.hash import argon2 # Hittar inte 
+from flask import Blueprint, redirect, url_for, flash
 
 bp_admin = Blueprint('bp_admin', __name__)
 
@@ -36,20 +37,24 @@ def create_user():
 def post_created_user():
     name = request.form['name']
     password = request.form['password']
-    #TODO double check that passwords match & other safety checks.
     check_password = request.form['check-password']
     access_level = request.form['access-level']
+
+    #TODO check for empty fields
+    if password != check_password:
+        flash("Passwords don't match")
+        return redirect(url_for('bp_admin.users'))
 
     id = str(uuid.uuid4())
 
     current_time = datetime.datetime.now()
     created_time = current_time.strftime("%y-%m-%d %H:%M:%S")
 
-    #id, password, user_created, username
+    hashed_password = argon2.using(rounds=10).hash(password)
 
     new_tag = {
         'id': id,
-        'password': password,
+        'password': hashed_password,
         'created': created_time,
         'username': name,
         'access': access_level
