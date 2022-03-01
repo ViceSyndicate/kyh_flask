@@ -1,0 +1,21 @@
+{% extends "base-template.html" %}
+
+{% block title %}
+    <h1>Edit</h1>
+{% endblock %}
+
+{% block content %}
+
+    <form action="{{ url_for('bp_admin.update_user') }}" method="POST">
+        <p>name <input type="text" name="name" value="{{user.username}}"/></p>
+        <p>password <input type="password" name="password"/> </p>
+        <select name="access-level" id="access-level">
+            <option value="green">Green</option>
+            <option value="yellow">Yellow</option>
+            <option value="red">Red</option>
+            <option value="black">Black</option>
+        </select>
+        <p><input type="submit" value="Submit" /></p>
+    </form>
+
+{% endblock %}

@@ -6,6 +6,7 @@ from app import dynamodb_access
 
 bp_admin = Blueprint('bp_admin', __name__)
 
+
 @bp_admin.get('/')
 def index():
     all_readings = dynamodb_access.get_all_readings()
@@ -38,6 +39,15 @@ def edit(id):
     # TODO Implement get_user(id)
     user = dynamodb_access.get_user(id)
     return render_template('edit.html', user=user)
+
+
+@bp_admin.post()
+def update_user():
+    user = {}
+    username = request.form['username']
+    # brb
+    user['username'] = username
+    dynamodb_access.update_user(user)
 
 
 @bp_admin.get('/create_user')
