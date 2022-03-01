@@ -1,13 +1,10 @@
 import datetime
 import uuid
-from passlib.hash import argon2 # Hittar inte 
-from flask import Blueprint, redirect, url_for, flash
-
-bp_admin = Blueprint('bp_admin', __name__)
-
-from flask import Flask, render_template, request
+from flask import Blueprint, redirect, url_for, render_template, request
+from passlib.hash import argon2
 from app import dynamodb_access
 
+bp_admin = Blueprint('bp_admin', __name__)
 
 @bp_admin.get('/')
 def index():
@@ -28,6 +25,21 @@ def users():
     return render_template('all_users.html', all_users=all_users)
 
 
+@bp_admin.post('/get_users')
+def search_for_users():
+    search_string = request.form['search_string']
+    matching_users = dynamodb_access.get_users(search_string)
+    return render_template('all_users.html', all_users=matching_users)
+
+
+#TODO WIP
+@bp_admin.get('/edit/<id>')
+def edit(id):
+    # TODO Implement get_user(id)
+    user = dynamodb_access.get_user(id)
+    return render_template('edit.html', user=user)
+
+
 @bp_admin.get('/create_user')
 def create_user():
     return render_template('create_user.html')
@@ -42,7 +54,7 @@ def post_created_user():
 
     #TODO check for empty fields
     if password != check_password:
-        flash("Passwords don't match")
+        #flash("Passwords don't match") # flash wont work unless i use LoginManager.
         return redirect(url_for('bp_admin.users'))
 
     id = str(uuid.uuid4())

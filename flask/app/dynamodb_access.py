@@ -1,6 +1,7 @@
 import os
 import boto3
-
+from boto3.dynamodb.conditions import Attr
+import json
 
 def get_resources():
     return boto3.resource('dynamodb',
@@ -23,17 +24,18 @@ def get_all_rfid_logs():
     return response['Items']
 
 
+#TODO Get 20 most recent logs.
 def get_recent_rfid_logs():
     client = get_resources()
     table = client.table('entry_logs')
-    # TODO Get 20 most recent logs.
 
 
 def get_all_users():
     client = get_resources()
     table = client.Table('users')
-    # TODO Filter out password & sensitive data.
-    response = table.scan()
+    response = table.scan(
+        AttributesToGet=['id', 'access', 'created', 'username']
+    )
     return response['Items']
 
 
@@ -42,3 +44,14 @@ def add_tag(new_tag):
     table = client.Table('users')
     table.put_item(Item=new_tag)
     return
+
+
+def get_users(search_string):
+    client = get_resources()
+    table = client.Table('users')
+    response = table.scan(
+        FilterExpression=Attr('username').contains(search_string)
+    )
+    for item in response['Items']:
+        item.pop("password")
+    return response['Items']

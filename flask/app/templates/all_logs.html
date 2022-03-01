@@ -16,6 +16,9 @@
             <th>
                 Door
             </th>
+            <th>
+                Access Granted
+            </th>
         </tr>
     {% for log in all_logs %}
         <tr>
@@ -27,6 +30,9 @@
             </td>
             <td>
                 {{ log['door'] }}
+            </td>
+            <td class="access_granted">
+                {{ log['access_granted'] }}
             </td>
         </tr>
     {% endfor %}

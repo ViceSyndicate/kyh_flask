@@ -5,25 +5,46 @@
 {% endblock %}
 
 {% block content %}
+
+<div>
+    <form action="{{ url_for('bp_admin.search_for_users') }}" method="POST" > <!---->
+        <input type="text" placeholder="Search..." name="search_string">
+        <button type="" id="search">Search</button>
+    </form>
+</div>
+
 <table>
     <tr>
-        <th>
+        <th width="31px">
+            Tag
+        </th>
+        <th width="150px">
             Created
         </th>
         <th>
-            Username
+            Owner
         </th>
-        <th>
+        <th width="100px">
+            Access
+        </th>
+        <th width="400">
             ID
         </th>
     </tr>
 {% for user in all_users %}
     <tr>
         <td>
+            <!-- TODO -->
+            <a href="{{ url_for('bp_admin.edit', id=user['id']) }}">Edit</a>
+        </td>
+        <td>
             {{ user['created'] }}
         </td>
         <td>
             {{ user['username'] }}
+        </td>
+        <td class="access">
+            {{ user['access'] }}
         </td>
         <td>
             {{ user['id'] }}
@@ -31,4 +52,29 @@
     </tr>
 {% endfor %}
 </table>
+
+    <!--
+    <div id="div1"><h2>Let jQuery AJAX Change This Text</h2></div>
+    <button>Get External Content</button>
+    -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        access_levels = document.getElementsByClassName("access");
+        for(let i = 0; i < access_levels.length; i++){
+            console.log(access_levels[i].innerHTML)
+            if (access_levels[i].innerHTML.includes("green")){
+                access_levels[i].style.backgroundColor = "green";
+            }
+            if (access_levels[i].innerHTML.includes("yellow")){
+                access_levels[i].style.backgroundColor = "orange";
+            }
+            if (access_levels[i].innerHTML.includes("red")){
+                access_levels[i].style.backgroundColor = "red";
+            }
+        }
+    });
+</script>
 {% endblock %}
+
+
