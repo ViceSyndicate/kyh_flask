@@ -51,7 +51,7 @@ def update_user():
     user['username'] = username
     user['password'] = password
     user['access'] = access
-    #dynamodb_access.update_user(user)
+    dynamodb_access.update_tag(user)
     return redirect(url_for('bp_admin.users'))
 
 

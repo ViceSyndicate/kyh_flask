@@ -64,13 +64,35 @@ def get_user(id):
     return response['Item']
 
 
-def update_user(user):
+def update_tag(user):
+    username = user['username']
+    password = user['password']
+
+    # Issues modifying access. Need help.
+    access = user['access']
+
+    update_expression = 'SET #na = :' + 'username' + ', #pw = :' + 'password'
+
     client = get_resources()
     table = client.Table('users')
-    key = {
-        'id': {'S': user['id']}
-    }
-    response = table.get_item(key)
+    response = table.update_item(
+        TableName='users',
+        Key={
+            'id': user['id']
+        },
+        ExpressionAttributeNames={
+            '#na': 'username',
+            '#pw': 'password'
+        },
+        UpdateExpression=update_expression,
+        ExpressionAttributeValues={
+            ':username':
+                username,
+            ':password':
+                password
+        }
+    )
+    print(response)
     return
 
 
