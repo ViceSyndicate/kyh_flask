@@ -5,8 +5,8 @@
 {% endblock %}
 
 {% block content %}
-
     <form action="{{ url_for('bp_admin.update_user') }}" method="POST">
+        <input type="hidden" name="id" id="id" value="{{ user.id }}">
         <p>name <input type="text" name="name" value="{{user.username}}"/></p>
         <p>password <input type="password" name="password"/> </p>
         <select name="access-level" id="access-level">
@@ -15,7 +15,12 @@
             <option value="red">Red</option>
             <option value="black">Black</option>
         </select>
-        <p><input type="submit" value="Submit" /></p>
+        <p><input type="submit" value="Update" style="background: green"/></p>
+    </form>
+
+    <form action="{{ url_for('bp_admin.delete_tag') }}" method="POST">
+        <input type="hidden" name="id" id="id" value="{{ user.id }}">
+        <input type="submit" value="Delete Tag" style="background: red"/>
     </form>
 
 {% endblock %}

@@ -55,3 +55,31 @@ def get_users(search_string):
     for item in response['Items']:
         item.pop("password")
     return response['Items']
+
+
+def get_user(id):
+    client = get_resources()
+    table = client.Table('users')
+    response = table.get_item(Key={'id': id})
+    return response['Item']
+
+
+def update_user(user):
+    client = get_resources()
+    table = client.Table('users')
+    key = {
+        'id': {'S': user['id']}
+    }
+    response = table.get_item(key)
+    return
+
+
+def delete_tag(tag_id):
+    client = get_resources()
+    table = client.Table('users')
+    key = {
+        'id': tag_id
+    }
+    response = table.delete_item(Key=key)
+    print(response)
+    return

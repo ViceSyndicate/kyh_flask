@@ -33,7 +33,6 @@ def search_for_users():
     return render_template('all_users.html', all_users=matching_users)
 
 
-#TODO WIP
 @bp_admin.get('/edit/<id>')
 def edit(id):
     # TODO Implement get_user(id)
@@ -41,13 +40,26 @@ def edit(id):
     return render_template('edit.html', user=user)
 
 
-@bp_admin.post()
+@bp_admin.post('/updated')
 def update_user():
     user = {}
-    username = request.form['username']
-    # brb
+    id = request.form['id']
+    username = request.form['name']
+    password = request.form['password']
+    access = request.form['access-level']
+    user['id'] = id
     user['username'] = username
-    dynamodb_access.update_user(user)
+    user['password'] = password
+    user['access'] = access
+    #dynamodb_access.update_user(user)
+    return redirect(url_for('bp_admin.users'))
+
+
+@bp_admin.post('/deleted')
+def delete_tag():
+    tag_id = request.form['id']
+    dynamodb_access.delete_tag(tag_id)
+    return redirect(url_for('bp_admin.users'))
 
 
 @bp_admin.get('/create_user')
