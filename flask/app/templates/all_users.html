@@ -75,6 +75,26 @@
         }
     });
 </script>
+<script>
+    $(document).ready(function(){
+        $("search").click(function(){
+            $.ajax({
+                url: "/get_users",
+                type: "GET",
+                data: {},
+                success: function(response) {
+                    alert('Successfully called');
+                    $("#div1").html(response)
+                },
+                error: function(jqxhr, status, exception) {
+                    alert('Exception:', exception);
+                }
+            })
+        });
+    });
+</script>
+
+
 {% endblock %}
 
 

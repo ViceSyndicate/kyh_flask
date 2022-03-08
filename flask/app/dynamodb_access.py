@@ -67,11 +67,9 @@ def get_user(id):
 def update_tag(user):
     username = user['username']
     password = user['password']
-
-    # Issues modifying access. Need help.
     access = user['access']
 
-    update_expression = 'SET #na = :' + 'username' + ', #pw = :' + 'password'
+    update_expression = 'SET #na = :' + 'username' + ', #pw = :' + 'password' + ', #ac = :' + 'access'
 
     client = get_resources()
     table = client.Table('users')
@@ -82,14 +80,17 @@ def update_tag(user):
         },
         ExpressionAttributeNames={
             '#na': 'username',
-            '#pw': 'password'
+            '#pw': 'password',
+            '#ac': 'access'
         },
         UpdateExpression=update_expression,
         ExpressionAttributeValues={
             ':username':
                 username,
             ':password':
-                password
+                password,
+            ':access':
+                access
         }
     )
     print(response)

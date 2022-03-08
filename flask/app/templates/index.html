@@ -1,0 +1,14 @@
+{% extends "base-template.html" %}
+
+{% block title %}
+    <h1>Login</h1>
+{% endblock %}
+{% block content %}
+
+    <h5>Unused</h5>
+    <form action="/login" method="POST">
+        <input type="text" required placeholder="Username">
+        <input type="password" name="password" placeholder="password">
+        <input type="submit" value="Login">
+    </form>
+{% endblock %}
