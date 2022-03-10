@@ -1,5 +1,4 @@
 # kyh_flask
-cloud course
 
 This is a project made for the Cloude class for my 2 year IoT studies.
 
